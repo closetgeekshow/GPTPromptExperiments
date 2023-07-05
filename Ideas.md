@@ -28,3 +28,6 @@ The conversation part still happens in both cases but each machine is told it ha
 5. Approach+Tasks to code
 6. Approach+Story to tasks
 7. Approach+Code to Code (refactor)
+
+## July 4, 2023
+8. Add redundant comments to describe every line of code
