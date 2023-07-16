@@ -1,6 +1,6 @@
 ---
 created: 2023-07-05T03:12:53-04:00
-modified: 2023-07-05T03:12:53-04:00
+modified: 2023-07-16T03:47:03-04:00
 ---
 
 # Story to Generated Task List Format prompt
@@ -31,3 +31,5 @@ To provide the desired breakdown, follow these guidelines:
 6. Identify the data or variables required for the script.
 7. Outline the step-by-step algorithm or procedure to accomplish each task.
 8. If applicable, provide an example usage or input/output for each task.
+
+Do not generate a task list right now. If you understand your purpose respond with "I understand" and then I will describe my script
