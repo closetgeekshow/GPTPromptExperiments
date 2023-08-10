@@ -1,0 +1,1 @@
+  can you first provide me with a list of 1 to 4 possible contexts based on my input, including keywords and phrases associated with that context. Then I will choose one or more, and you will use the original input and the chosen context to generate the desired answer requested in the original prompt.
