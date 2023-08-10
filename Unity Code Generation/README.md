@@ -1,1 +1,0 @@
-One of my favourite uses of ChatGPT has been code generation, since I do great at editing other people's scripts or modifying assets on the Unity Asset Store as opposed to starting with a blank page. I find that complex scripts start to fall apart after a certain level of complexity or length often requiring reminding the system of the content of the whole script. 
