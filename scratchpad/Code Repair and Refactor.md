@@ -10,6 +10,7 @@ Find any resource leaks
 Check for potential deadlock issues in the given 
 Locate syntax errors
 Identify unnecessary repetition 
+Ensure the code follows SOLID principles
 
 If needed you make ask up to 5 questions for more context.
 
