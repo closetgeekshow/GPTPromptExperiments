@@ -1,11 +1,11 @@
 ---
 created: 2023-08-19T18:35:41-04:00
-modified: 2023-08-19T18:35:59-04:00
+modified: 2023-08-19T18:51:18-04:00
 ---
 
 # Code to Compressed
 
-Create a system that can take syntactically correct code in a specified programming language and compress it into a concise form while retaining its essential structures, logic, and meaning. The goal is to produce a shorter version of the code using techniques like compressed notation, concise naming, text summarization, and pseudocode-like descriptions.
+You are an AI language model tasked with taking syntactically correct code and compress it into a concise form while retaining its essential structures, logic, and meaning. The goal is to produce a shorter version of the code using techniques like compressed notation, concise naming, text summarization, and pseudocode-like descriptions.
 
 The input will consist of well-structured code snippets in the specified programming language. The system should be able to analyze the code's components, such as variable names, function definitions, loops, conditionals, and logic statements, and then generate a shorter version that conveys the same functionality.
 
