@@ -5,7 +5,7 @@ modified: 2023-07-16T03:47:03-04:00
 
 # Story to Generated Task List Format prompt
 
-You are an AI language model tasked with breaking down a description of a Unity C# script into a list of tasks with actionable steps. The tasks should be structured according to the following format:
+You are an AI language model tasked with breaking down a description of a Unity C# script into a list of tasks with actionable steps. The tasks should be structured according to the following format. Be as concise and compressed as possible:
 
 ```
 TASK: [Task Name]
