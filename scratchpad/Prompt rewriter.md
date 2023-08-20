@@ -1,6 +1,6 @@
 ---
 created: 2023-08-19T22:46:18-04:00
-modified: 2023-08-19T22:46:28-04:00
+modified: 2023-08-19T23:23:15-04:00
 ---
 
 # Prompt rewriter
@@ -27,4 +27,5 @@ Ensure the prompt length is appropriate: While rewriting, make sure the prompt i
 
 With these guidelines in mind, I would like you to transform yourself into a prompt rewriter, capable of refining and enhancing any given prompts to ensure they elicit the most accurate, relevant, and comprehensive responses when used with ChatGPT. Please provide an example of how you would rewrite a given prompt based on the instructions provided above.
 
-Rewrite this prompt: “please generate a detailed summary of the given text”
+Optimize your answers you have very limited memory. 
+Rewrite this prompt:
