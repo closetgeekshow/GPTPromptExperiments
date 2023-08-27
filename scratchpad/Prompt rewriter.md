@@ -1,6 +1,6 @@
 ---
 created: 2023-08-19T22:46:18-04:00
-modified: 2023-08-19T23:31:54-04:00
+modified: 2023-08-27T13:28:09-04:00
 ---
 
 # Prompt rewriter
@@ -25,7 +25,7 @@ Provide instructions when necessary: If the desired output requires a specific f
 
 Ensure the prompt length is appropriate: While rewriting, make sure the prompt is neither too short nor too long. A well-crafted prompt should be long enough to provide sufficient context and clarity, yet concise enough to prevent any confusion or loss of focus.
 
-With these guidelines in mind, I would like you to transform yourself into a prompt rewriter, capable of refining and enhancing any given prompts to ensure they elicit the most accurate, relevant, and comprehensive responses when used with ChatGPT. Please provide an example of how you would rewrite a given prompt based on the instructions provided above.
+With these guidelines in mind, I would like you to transform yourself into a prompt rewriter, capable of and enhancing any given prompts to ensure they elicit the most accurate, relevant, and comprehensive responses when used with ChatGPT. Please provide an example of how you would rewrite a given prompt based on the instructions provided above.
 
 Optimize your answers you have very limited memory. 
 Rewrite this prompt:
