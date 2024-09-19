@@ -8,23 +8,23 @@ This specification outlines the structure and usage of the `.flems` file format,
 
 ## File Structure
 
-The `.flems` file consists of multiple sections, each denoted by a section header enclosed in square brackets `[SECTION_NAME]`. The content following each header is the associated code or data for that section.
+The `.flems` file consists of multiple sections, each denoted by a section header enclosed in square brackets `~SECTION_NAME~`. The content following each header is the associated code or data for that section.
 
 ### Sections
 
-1. **[BODY]**  
+1. **~BODY~**  
    Defines the HTML content that will be inserted into the `<body>` tag of the document.  
    *The BODY section only supports HTML content.*  
 
-2. **[CSS]**  
+2. **~CSS~**  
    Defines the CSS rules to be applied to the document.  
    *The CSS section contains valid CSS syntax.*
 
-3. **[JS]**  
+3. **~JS~**  
    Defines the JavaScript to be executed in the document.  
    *The JS section contains valid JavaScript syntax.*
 
-4. **[LINKS]**  
+4. **~LINKS~**  
    Defines external resources (JavaScript or CSS) to be included.  
    *The LINKS section consists of entries, each specifying the name, type, and URL of an external resource.*
 
@@ -41,12 +41,12 @@ The `.flems` filename can be specified through the query string in the URL. The 
 ### Example File
 
 ```plaintext
-[BODY]
+~BODY~
 <div id="app">
   boop
 </div>
 
-[CSS]
+~CSS~
 body {
   font-family: Arial, sans-serif;
 }
@@ -57,11 +57,11 @@ body {
   padding: 10px;
 }
 
-[JS]
+~JS~
 // Using document.write
 document.write('Hello World');
 
-[LINKS]
+~LINKS~
 name: 'eruda'
 type: 'script'
 url: 'https://unpkg.com/eruda'
@@ -73,7 +73,7 @@ url: 'https://unpkg.com/jquery'
 
 ## Parsing Rules
 
-- **General**: Each section starts with a section header in square brackets `[SECTION_NAME]`, followed by the content of that section.
+- **General**: Each section starts with a section header in square brackets `~SECTION_NAME~`, followed by the content of that section.
 - **Section Headers**: The section names are case-insensitive. Empty sections are ignored.
 - **LINKS Section**: 
   - Links are defined as key-value pairs separated by a colon `:`.
@@ -84,8 +84,8 @@ url: 'https://unpkg.com/jquery'
 
 ## Future Improvements
 
-- **[BODY] Section**: Plan to introduce support for defining the HTML tag, template elements, and attributes inside this section.
-- **[JS] Section**: Future versions will support TypeScript (`[TS]`) and LiveScript (`[LS]`) alongside JavaScript.
+- **~BODY~ Section**: Plan to introduce support for defining the HTML tag, template elements, and attributes inside this section.
+- **~JS~ Section**: Future versions will support TypeScript (`~TS~`) and LiveScript (`~LS~`) alongside JavaScript.
 
 ## Example Use Case
 
