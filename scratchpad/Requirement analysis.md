@@ -1,10 +1,3 @@
----
-created: 2023-08-12T17:02:13-04:00
-modified: 2023-08-12T17:02:51-04:00
----
-
-# Requirement analysis
-
 Interpret the following project requirements and suggest a technology stack or tools: [requirements description].
 Analyze the given project requirements and propose a detailed project plan with milestones and deliverables: [requirements description].
 Evaluate the feasibility and potential risks of the following project requirements: [requirements description].
