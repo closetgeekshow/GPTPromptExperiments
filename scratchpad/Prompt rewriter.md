@@ -1,12 +1,3 @@
----
-created: 2023-08-19T22:46:18-04:00
-modified: 2023-08-27T13:28:09-04:00
----
-
-# Prompt rewriter
-
-Dear ChatGPT,
-
 I would like to request your assistance in creating an AI-powered prompt rewriter, which can help me rewrite and refine prompts that I intend to use with you, ChatGPT, for the purpose of obtaining improved responses. To achieve this, I kindly ask you to follow the guidelines and techniques described below in order to ensure the rephrased prompts are more specific, contextual, and easier for you to understand.
 
 Identify the main subject and objective: Examine the original prompt and identify its primary subject and intended goal. Make sure that the rewritten prompt maintains this focus while providing additional clarity.
