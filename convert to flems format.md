@@ -103,28 +103,17 @@ The following JavaScript algorithm demonstrates how to parse and utilize this fi
 "use strict";
 function getFlemsFilename() {
   const urlParams = new URLSearchParams(window.location.search);
-  let flemsParam = urlParams.get("flems");
-  
-  if (!flemsParam) {
-    return "sfc/sfc.flems"; // Default to 'sfc.flems' if not specified
-  }
+  let flemsParam = urlParams.get("flems") || "default"; // Use 'default' if no flems parameter
 
   // Decode the URL parameter
   let decodedParam = decodeURIComponent(flemsParam);
 
-  // Check if the decoded parameter is a URL
-  try {
-    new URL(decodedParam);
-    // If it's a valid URL, return it as is
-    return decodedParam;
-  } catch (error) {
-    // If it's not a valid URL, treat it as a filename
-    // Add .flems extension if not present
-    if (!decodedParam.endsWith(".flems")) {
-      decodedParam += ".flems";
-    }
-    return decodedParam;
+  // Add .flems extension if not already present
+  if (!decodedParam.endsWith(".flems")) {
+    decodedParam += ".flems";
   }
+
+  return decodedParam;
 }
 
 function fetchAndParseContent(url) {
