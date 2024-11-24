@@ -1,0 +1,28 @@
+~BODY~
+<script src="https://unpkg.com/react@18.2.0/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@excalidraw/excalidraw/dist/excalidraw.development.js"
+></script>
+<div class="container">
+  <h1>Excalidraw Embed Example</h1>
+  <div id="app"></div>
+</div>
+
+~JS~
+const App = () => {
+return React.createElement(
+    React.Fragment,
+    null,
+    React.createElement(
+    "div",
+    {
+        style: { height: "500px" },
+    },
+    React.createElement(ExcalidrawLib.Excalidraw),
+    ),
+);
+};
+
+const excalidrawWrapper = document.getElementById("app");
+const root = ReactDOM.createRoot(excalidrawWrapper);
+root.render(React.createElement(App));
