@@ -1,0 +1,154 @@
+~BODY~
+<div id="app">
+  <div id="card-viewer" class="half">
+    <h2>Card Viewer</h2>
+    <div id="card">
+      <img id="card-image" alt="Select a card" />
+      <div id="card-details">
+        <h3 id="card-name"></h3>
+        <p id="card-manaCost"></p>
+        <p id="card-type"></p>
+        <p id="card-text"></p>
+        <p id="card-stats"></p>
+        <p id="card-artist"></p>
+      </div>
+    </div>
+  </div>
+  <div id="search-panel" class="half">
+    <h2>Search Magic Cards</h2>
+    <input type="text" id="search-box" placeholder="Enter card name" />
+    <ul id="card-list"></ul>
+  </div>
+</div>
+
+~CSS~
+body {
+  font-family: Arial, sans-serif;
+}
+#app {
+  display: flex;
+  justify-content: space-between;
+  height: 100vh;
+  padding: 10px;
+}
+.half {
+  width: 48%;
+}
+#search-panel {
+  display: flex;
+  flex-direction: column;
+}
+#search-box {
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+#card-list {
+  list-style-type: none;
+  padding: 0;
+  overflow-y: auto;
+  max-height: 80vh;
+}
+#card-list li {
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+#card-list li:hover {
+  background-color: #f0f0f0;
+}
+#card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#card img {
+  width: 100%;
+  height: 300px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+#card-details {
+  width: 100%;
+  text-align: center;
+}
+#card-name {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+#card-text, #card-type, #card-manaCost, #card-stats, #card-artist {
+  font-size: 16px;
+}
+
+~JS~
+const debounce = (func, delay) => {
+  let debounceTimer;
+  return function() {
+    const context = this;
+    const args = arguments;
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => func.apply(context, args), delay);
+  };
+};
+
+const API_URL = 'https://api.magicthegathering.io/v1/cards';
+
+const searchBox = document.getElementById('search-box');
+const cardList = document.getElementById('card-list');
+const cardImage = document.getElementById('card-image');
+const cardName = document.getElementById('card-name');
+const cardManaCost = document.getElementById('card-manaCost');
+const cardType = document.getElementById('card-type');
+const cardText = document.getElementById('card-text');
+const cardStats = document.getElementById('card-stats');
+const cardArtist = document.getElementById('card-artist');
+
+function fetchCards(query) {
+  fetch(`${API_URL}?name=${query}`)
+    .then(response => response.json())
+    .then(data => {
+      displayCardList(data.cards);
+    })
+    .catch(error => console.error('Error fetching cards:', error));
+}
+
+function displayCardList(cards) {
+  cardList.innerHTML = '';
+  cards.forEach(card => {
+    const listItem = document.createElement('li');
+    listItem.textContent = card.name;
+    listItem.addEventListener('click', () => displayCard(card));
+    cardList.appendChild(listItem);
+  });
+}
+
+function displayCard(card) {
+  cardImage.src = card.imageUrl || '';
+  cardImage.alt = card.name;
+  cardName.textContent = card.name;
+  cardManaCost.textContent = card.manaCost ?? `Mana Cost: ${card.manaCost}`;
+  cardType.textContent = card.type ?? `Type: ${card.type}`;
+  cardText.textContent = card.text ?? `Text: ${card.text}`;
+  cardStats.textContent = card.power && card.toughness
+    ? `${card.power} / ${card.toughness}` : '';
+  cardArtist.textContent = card.artist ?? `Artist: ${card.artist}`;
+}
+
+const debouncedSearch = debounce(() => {
+  const query = searchBox.value;
+  if (query.length > 2) {
+    fetchCards(query);
+  }
+}, 500);
+
+searchBox.addEventListener('input', debouncedSearch);
+
+~LINKS~
+name: 'MTG SDK'
+type: 'js'
+url: 'https://unpkg.com/mtgsdk'
+
+name: 'jQuery'
+type: 'js'
+url: 'https://unpkg.com/jquery'
