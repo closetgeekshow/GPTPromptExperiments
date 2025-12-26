@@ -2,7 +2,7 @@
 
 **Purpose**: This article documents a set of prompt‑engineering techniques for directing a language model to *evaluate an input and infer which kinds of experts would provide useful context*. These patterns are intended for use in analysis pipelines, agent systems, design reviews, and research workflows.
 
-The goal is **not** roleplay for its own sake, but *selective expertise*: identifying which perspectives materially reduce uncertainty, risk, or blind spots.
+The goal is **not** roleplay for its own sake, but *selective and diverse expertise*: identifying a small, well‑balanced set of perspectives that materially reduce uncertainty, risk, or blind spots **without drifting into hyper‑specialized or redundant roles**.
 
 ---
 
@@ -13,12 +13,36 @@ Language models are generalists. They benefit most when we:
 * Explicitly surface **knowledge gaps**
 * Identify **risk‑bearing assumptions**
 * Route analysis to the *right kinds of expertise*
+* Ensure **perspective diversity**, not just technical depth
 
 Treating expert inference as a first‑class step improves:
 
 * Output quality
 * Cost control (fewer unnecessary perspectives)
 * Determinism in multi‑agent systems
+* Resilience against single‑discipline bias
+
+---
+
+## Guiding Principle: Favor Diverse, Generalist‑Level Expertise
+
+When inferring experts, prefer **broad, discipline‑level roles** over narrow, tool‑ or technology‑specific ones.
+
+### Prefer
+
+* “Backend Architect” over “PostgreSQL Query Planner Specialist”
+* “UX Researcher” over “Figma Auto‑Layout Expert”
+* “Data Architect” over “Vector Index Tuning Engineer”
+
+### Avoid
+
+* Roles tied to a single library, vendor, or implementation detail
+* Overlapping experts that answer the same class of questions
+* Deep specialists unless a *specific, high‑risk uncertainty* demands it
+
+A good heuristic:
+
+> *Each expert should contribute a meaningfully different way of thinking, not just deeper detail along the same axis.*
 
 ---
 
@@ -35,12 +59,13 @@ Instruct the model to *only* identify expert roles, not solve the problem.
 
 ### Prompt Pattern
 
-> Analyze the input. Identify the minimum set of expert roles whose perspectives would materially improve evaluation. For each role, explain why.
+> Analyze the input. Identify the **minimum, diverse set** of expert roles whose perspectives would materially improve evaluation. Prefer broad disciplines over narrow specializations. For each role, explain why it is distinct.
 
 ### Strengths
 
 * High precision
 * Low hallucination risk
+* Encourages diversity by construction
 
 ---
 
@@ -52,12 +77,12 @@ Experts are inferred by first identifying what is missing, risky, or assumed.
 
 ### Prompt Pattern
 
-> Identify assumptions, unexamined risks, and unclear claims in the input. For each, infer the expert best suited to evaluate it.
+> Identify assumptions, unexamined risks, and unclear claims in the input. For each, infer the *type of expert* best suited to evaluate it. Avoid naming experts that differ only by tooling or implementation.
 
 ### Strengths
 
 * Grounded in content gaps
-* Avoids generic expert lists
+* Naturally limits over‑specialization
 
 ---
 
@@ -65,7 +90,7 @@ Experts are inferred by first identifying what is missing, risky, or assumed.
 
 ### Description
 
-Decompose the input across mutually exclusive dimensions, then assign expertise per dimension.
+Decompose the input across mutually exclusive dimensions, then assign **one primary expert per dimension**.
 
 ### Common Axes
 
@@ -77,12 +102,13 @@ Decompose the input across mutually exclusive dimensions, then assign expertise 
 
 ### Prompt Pattern
 
-> Decompose the input across key evaluation axes. For each axis, identify the most relevant expert.
+> Decompose the input across key evaluation axes. For each axis, identify **one broad expert role** responsible for that perspective.
 
 ### Strengths
 
 * Predictable structure
-* Easy to standardize
+* Prevents expert duplication
+* Strong bias toward diversity
 
 ---
 
@@ -94,12 +120,12 @@ Experts are defined by the *questions they are needed to answer*.
 
 ### Prompt Pattern
 
-> Generate the most important unanswered questions raised by the input. For each question, infer the expert best qualified to answer it.
+> Generate the most important unanswered questions raised by the input. Group similar questions together, then infer **one expert per group** capable of addressing them.
 
 ### Strengths
 
 * High signal
-* Naturally scoped
+* Prevents one‑expert‑per‑question explosion
 
 ---
 
@@ -111,12 +137,12 @@ Infer expertise by modeling who would approve, block, or revise the proposal.
 
 ### Prompt Pattern
 
-> Identify stakeholders who would approve, block, or request changes. Infer the expertise behind each stance.
+> Identify stakeholders who would approve, block, or request changes. Consolidate stakeholders with similar concerns into a single expert role.
 
 ### Strengths
 
 * Surfaces conflict
-* Useful for design and architecture reviews
+* Encourages viewpoint diversity over role proliferation
 
 ---
 
@@ -128,12 +154,12 @@ Map claims → required evidence → expert who evaluates that evidence.
 
 ### Prompt Pattern
 
-> For each major claim, identify required evidence and the expert most likely to validate it.
+> For each major claim, identify the *type of evidence* required and infer the **general class of expert** most likely to validate it.
 
 ### Strengths
 
 * RAG‑friendly
-* Ties experts to concrete artifacts
+* Anchors experts to evidence, not tools
 
 ---
 
@@ -141,7 +167,7 @@ Map claims → required evidence → expert who evaluates that evidence.
 
 ### Description
 
-Force deterministic expert inference via a schema.
+Force deterministic and scoped expert inference via a schema.
 
 ### Example Schema
 
@@ -159,10 +185,17 @@ Force deterministic expert inference via a schema.
 }
 ```
 
+### Additional Constraints (Recommended)
+
+* Maximum experts: 3–7
+* Roles must be non‑overlapping
+* Roles must differ by perspective, not depth
+
 ### Strengths
 
 * Machine‑readable
 * Easy downstream routing
+* Guards against hyper‑specialization
 
 ---
 
@@ -174,16 +207,16 @@ Separate *expert selection* from *expert analysis*.
 
 ### Pass 1
 
-> Identify relevant expert roles only. Do not analyze the problem.
+> Identify a **diverse, minimal** set of expert roles only. Do not analyze the problem.
 
 ### Pass 2
 
-> Using the identified experts, analyze the input from each perspective.
+> Using the identified experts, analyze the input from each distinct perspective.
 
 ### Strengths
 
 * Reduces cross‑contamination
-* Works well with small models
+* Keeps role selection clean and scoped
 
 ---
 
@@ -195,12 +228,12 @@ Assign confidence scores to inferred experts based on relevance and impact.
 
 ### Prompt Pattern
 
-> Assign a confidence score (0–1) to each expert based on relevance and risk if omitted.
+> Assign a confidence score (0–1) to each expert based on relevance and risk if omitted. Remove experts with overlapping responsibilities.
 
 ### Strengths
 
 * Prunes low‑value roles
-* Controls token usage
+* Encourages consolidation
 
 ---
 
@@ -212,12 +245,12 @@ Infer experts who would *challenge* the input rather than support it.
 
 ### Prompt Pattern
 
-> Identify experts likely to disagree with the assumptions in this input and explain why.
+> Identify experts likely to disagree with the assumptions in this input. Prefer experts representing *different worldviews or incentives*, not narrower technical depth.
 
 ### Strengths
 
 * Reveals hidden risks
-* Surfaces alternative paradigms
+* Improves epistemic diversity
 
 ---
 
@@ -225,16 +258,18 @@ Infer experts who would *challenge* the input rather than support it.
 
 For most use cases:
 
-> Analyze the input. Identify the smallest set of expert roles needed to fully evaluate it, based on unanswered questions, risk areas, and evidence gaps. Return structured output explaining why each expert matters.
+> Analyze the input. Identify the smallest **diverse** set of expert roles needed to fully evaluate it, based on unanswered questions, risk areas, and evidence gaps. Prefer broad disciplines. Avoid hyper‑specialized or redundant roles. Return structured output explaining why each expert matters.
 
-This balances **precision, cost, and extensibility**.
+This balances **precision, diversity, cost, and extensibility**.
 
 ---
 
 ## Notes for Implementation
 
-* Prefer *few experts with justification* over exhaustive lists
-* Tie experts to questions or evidence whenever possible
+* Prefer *few, diverse experts* with clear justification
+* One expert ≠ one tool or library
+* Consolidate similar concerns under a single role
+* Treat deep specialization as an exception, not a default
 * Keep expert inference as a reusable, standalone step
 
 These patterns can be embedded in:
